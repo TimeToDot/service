@@ -25,7 +25,7 @@ public class WarehouseApiTest {
         api.addAsset("CXXWEW8WXCXCV", "MOBILE_PHONE", "13/12/2016");
         api.addAsset("CSDD23DSSDBBF", "TABLET", "14/10/2019");
         api.addAsset("DSS23231323SD", "COMPUTER", "22/11/2021");
-        api.addAsset("CXXWE2EWXCXCV", "MOBILE_PHONE", "03/03/2019");
+        api.addAsset("CXXWE2EWXCXCV", "MOBILE_PHONE", "03/03/2020");
         api.addAsset("VSADW5WEEEWWW", "WATCH", "10/02/2017");
         api.addAsset("VSADAAA005WWW", "TV", "22/12/2021");
         api.addAsset("CXXWE23C52XCV", "TV", "03/01/2024");
