@@ -19,20 +19,20 @@ public class WarehouseApiTest {
     
     private void executeWarehouseOperations(WarehouseApi api){
         api.addAsset("CXXWEW8WXCXCV", "MOBILE_PHONE", "13/12/2016");
-        api.addAsset("CSDD22DSS4SWF", "TABLET", "22/12/2020");
-        api.addAsset("SDSCS5W32D222", "COMPUTER", "21/12/2020");
-        api.addAsset("DSS23532323SD", "COMPUTER", "20/12/2020");
+        api.addAsset("CSDD22DSS4SWF", "TABLET", "22/12/2030");
+        api.addAsset("SDSCS5W32D222", "COMPUTER", "21/12/2030");
+        api.addAsset("DSS23532323SD", "COMPUTER", "20/12/2030");
         api.addAsset("CXXWEW8WXCXCV", "MOBILE_PHONE", "13/12/2016");
-        api.addAsset("CSDD23DSSDBBF", "TABLET", "14/10/2019");
-        api.addAsset("DSS23231323SD", "COMPUTER", "22/11/2021");
-        api.addAsset("CXXWE2EWXCXCV", "MOBILE_PHONE", "03/03/2020");
+        api.addAsset("CSDD23DSSDBBF", "TABLET", "14/10/2029");
+        api.addAsset("DSS23231323SD", "COMPUTER", "22/11/2031");
+        api.addAsset("CXXWE2EWXCXCV", "MOBILE_PHONE", "03/03/2030");
         api.addAsset("VSADW5WEEEWWW", "WATCH", "10/02/2017");
-        api.addAsset("VSADAAA005WWW", "TV", "22/12/2021");
-        api.addAsset("CXXWE23C52XCV", "TV", "03/01/2024");
-        api.addAsset("WDFGSDDC52XCV", "TV", "03/01/2024");
-        api.addAsset("VSA43A56EEEWR", "WATCH", "22/12/2021");
-        api.addAsset("OGSDXWE23C523", "TV", "01/01/2020");
-        api.addAsset("VSA43A56EEEWR", "WATCH", "22/12/2021");
+        api.addAsset("VSADAAA005WWW", "TV", "22/12/2031");
+        api.addAsset("CXXWE23C52XCV", "TV", "03/01/2034");
+        api.addAsset("WDFGSDDC52XCV", "TV", "03/01/2034");
+        api.addAsset("VSA43A56EEEWR", "WATCH", "22/12/2031");
+        api.addAsset("OGSDXWE23C523", "TV", "01/01/2030");
+        api.addAsset("VSA43A56EEEWR", "WATCH", "22/12/2031");
 
         api.removeAsset("CXXWEW8WXCXCV");
         api.removeAsset("WDFGSDDC52XCV");
