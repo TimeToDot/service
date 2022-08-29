@@ -15,7 +15,6 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
-
 @Slf4j
 public class DefaultWarehouseService implements WarehouseService {
 
@@ -36,41 +35,36 @@ public class DefaultWarehouseService implements WarehouseService {
 
   @Override
   public void addAsset(String serialNumber, String assetType, String warrantyExpirationDate) {
-    if (assetValidator.isDataValid(serialNumber, assetType, warrantyExpirationDate)) {
-      WarehouseAsset warehouseAsset = null;
-
-      try {
-        warehouseAsset = assetMapper.mapWarehouseAsset(assetType, warrantyExpirationDate);
-      } catch (ParseException e) {
-        log.error(e.getMessage(), e);
-      }
-      warehouseAssetMap.put(serialNumber, warehouseAsset);
-
+    if (!assetValidator.isDataValid(serialNumber, assetType, warrantyExpirationDate)) {
+      log.info(LoggerUtil.ARGUMENTS_ARE_NOT_VALID);
+    } else {
       if (warehouseAssetMap.containsKey(serialNumber)) {
         log.info(LoggerUtil.SERIAL_NUMBER_EXIST);
       }
-      log.info(LoggerUtil.ASSET_WAS_CREATED);
+
+      persist(serialNumber, assetType, warrantyExpirationDate);
     }
-    log.info(LoggerUtil.ARGUMENTS_ARE_NOT_VALID);
   }
 
   @Override
   public void removeAsset(String serialNumber) {
-    if (assetValidator.isSerialNumberValid(serialNumber)) {
+    if (!assetValidator.isSerialNumberValid(serialNumber)) {
+      log.info(LoggerUtil.ARGUMENT_IS_NOT_VALID);
+    } else {
       warehouseAssetMap.remove(serialNumber);
 
       log.info(LoggerUtil.ASSET_WAS_REMOVED);
     }
-    log.info(LoggerUtil.ARGUMENT_IS_NOT_VALID);
   }
 
   @Override
   public boolean isAssetInWarehouse(String serialNumber) {
-    if (assetValidator.isSerialNumberValid(serialNumber)) {
+    if (!assetValidator.isSerialNumberValid(serialNumber)) {
+      log.info(LoggerUtil.ARGUMENT_IS_NOT_VALID);
+      return false;
+    } else {
       return warehouseAssetMap.containsKey(serialNumber);
     }
-    log.info(LoggerUtil.ARGUMENT_IS_NOT_VALID);
-    return false;
   }
 
   @Override
@@ -80,13 +74,16 @@ public class DefaultWarehouseService implements WarehouseService {
 
   @Override
   public int countByAssetType(String assetType) {
-    if (assetValidator.isTypeValid(assetType)) {
+    if (!assetValidator.isTypeValid(assetType)) {
+      log.info(LoggerUtil.ARGUMENT_IS_NOT_VALID);
+      return 0;
+    } else {
       return (int) warehouseAssetMap.entrySet().stream()
-        .filter(entry -> entry.getValue().getAssetType().equals(AssetType.valueOf(assetType)))
+        .map(Map.Entry::getValue)
+        .map(WarehouseAsset::getAssetType)
+        .filter(type -> type.equals(AssetType.valueOf(assetType)))
         .count();
     }
-    log.info(LoggerUtil.ARGUMENT_IS_NOT_VALID);
-    return 0;
   }
 
   @Override
@@ -104,5 +101,16 @@ public class DefaultWarehouseService implements WarehouseService {
       log.error(e.getMessage(), e);
     }
     return new ArrayList<>();
+  }
+
+  private void persist(String serialNumber, String assetType, String warrantyExpirationDate) {
+    try {
+      WarehouseAsset warehouseAsset = assetMapper.mapWarehouseAsset(assetType, warrantyExpirationDate);
+      warehouseAssetMap.put(serialNumber, warehouseAsset);
+      log.info(LoggerUtil.ASSET_WAS_ADDED);
+
+    } catch (ParseException e) {
+      log.error(e.getMessage(), e);
+    }
   }
 }
