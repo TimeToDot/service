@@ -1,19 +1,22 @@
-package com.example.warehouse;
+package com.example.warehouse.api;
+
+import com.example.warehouse.service.DefaultWarehouseService;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-
-import java.util.List;
-import org.junit.Before;
-import org.junit.Test;
 
 public class WarehouseApiTest {
 
     private WarehouseApi api;
 
-    @Before
+    @BeforeEach
     public void setUp() {
-        api = new WarehouseApi();
+        api = new WarehouseApi(new DefaultWarehouseService());
         executeWarehouseOperations(api);
     }
     
